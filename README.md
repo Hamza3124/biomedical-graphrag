@@ -1,8 +1,9 @@
 # Diseases Cause Oriented Analysis using RAG and Knowledge Graphs (GraphRAG)
 
 > **Projet de Fin d'Année (PFA) — 5IADA (EMSI)**  
-> **Auteur :** Hessa  
-> **Phase 2 :** Graphe Opérationnel, Base Vectorielle Indexée et Scripts Documentés
+> **Équipe Projet / Auteurs :** **Hamza Essamoudi** — **Salma Ouahman** — **Ghita El Hajjouji**  
+> **Projet :** Analyse Causale Multi-Échelles de Pathologies par GraphRAG Hybride (Alzheimer & Diabète de Type 2)  
+> **Statut :** Phases 2 & 3 Opérationnelles, Validées et Documentées  
 
 ---
 

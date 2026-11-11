@@ -21,18 +21,20 @@ def print_header(title: str):
     print("=" * 75)
 
 def demo_summary():
-    print_header("1. Présentation des Métriques Clés (Phase 2)")
+    print_header("1. Présentation des Métriques Clés (Phase 2 & 3)")
     print("""
   Projet : Analyse causale de pathologies via GraphRAG biomédical
+  Équipe : Hamza Essamoudi | Salma Ouahman | Ghita El Hajjouji (5IADA - EMSI)
   Pathologies cibles : 
     - Maladie d'Alzheimer (DOID:10652, UMLS: C0002395, MeSH: D000544)
     - Diabète de Type 2   (DOID:9352,  UMLS: C0011860, MeSH: D003924)
     
   [Knowledge Graph - data/processed/nodes_targeted.csv & edges_targeted.csv]
-    * Nœuds uniques     : 4 503 (3 045 Gènes, 773 Voies, 347 Molécules, 44 Symptômes...)
-    * Arêtes typées     : 19 911 relations biomédicales (PPI, régulations, cibles...)
-    * Causalité ciblée  : 772 arêtes directes Alzheimer, 196 gènes associés (APP, PSEN1, APOE...)
+    * Nœuds uniques     : 4 518 (3 045 Gènes, 773 Voies, 347 Molécules, 44 Symptômes, 15 Lifestyle...)
+    * Arêtes typées     : 19 951 relations biomédicales (PPI, régulations, cibles, lifestyle...)
+    * Causalité ciblée  : 781 arêtes directes Alzheimer, 196 gènes associés (APP, PSEN1, APOE...)
     * Traitements FDA   : Donepezil, Memantine, Galantamine, Rivastigmine
+    * Arborescence Mode : Human Lifestyle (Nutrition, Exercice aérobie, Sommeil, Stress...)
 
   [Base Vectorielle Sémantique - data/vector_store/chroma/]
     * Source de données : NIH MedQuAD (Questions-Réponses cliniques certifiées)

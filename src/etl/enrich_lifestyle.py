@@ -358,3 +358,4 @@ def enrich_subgraph_with_lifestyle():
 
 if __name__ == "__main__":
     enrich_subgraph_with_lifestyle()
+

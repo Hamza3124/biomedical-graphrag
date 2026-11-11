@@ -44,8 +44,8 @@ def create_architecture_diagram():
     # 1. Main Header
     ax.text(50, 96.5, "ARCHITECTURE DU SYSTÈME HYBRIDE GRAPHRAG BIOMÉDICAL", 
             ha="center", va="center", fontsize=20, fontweight="bold", color=COLOR_TITLE, fontfamily="sans-serif")
-    ax.text(50, 93.5, "Analyse Causale Multi-Échelles de Pathologies (Alzheimer & Diabète de Type 2) | Projet PFA - 5IADA (EMSI)", 
-            ha="center", va="center", fontsize=11, color=COLOR_SUBTITLE, fontfamily="sans-serif")
+    ax.text(50, 93.5, "Hamza Essamoudi  •  Salma Ouahman  •  Ghita El Hajjouji  |  Projet PFA - 5IADA (EMSI)", 
+            ha="center", va="center", fontsize=11.5, fontweight="bold", color="#38BDF8", fontfamily="sans-serif")
 
     # Helper function to draw rounded boxes
     def draw_box(x, y, w, h, bg_color, border_color="#475569", radius=1.5, alpha=0.95):
