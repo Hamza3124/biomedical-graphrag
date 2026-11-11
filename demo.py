@@ -91,17 +91,43 @@ def demo_graph_causal():
     print(f"  -> {len(shared)} gènes clés partagés découverts : {sorted(list(shared))}")
     print("     (Valide l'hypothèse de l'insulino-résistance cérébrale / 'Diabète de Type 3')")
 
+def demo_graphrag_pipeline():
+    print_header("5. Interrogation en Direct du Pipeline Hybride GraphRAG (Phase 3)")
+    from src.rag.pipeline import GraphRAGPipeline
+    pipeline = GraphRAGPipeline(use_neo4j=False)
+    q = "How do mutations in APP, PSEN1, and APOE lead to Alzheimer's disease and memory disorders?"
+    print(f"\n[Question Clinique Traitée] : \"{q}\"")
+    report = pipeline.query(q, mode="hybrid")
+    print(f"  • Pathologie : {report.disease_scope}")
+    print(f"  • Gènes identifiés : {report.genetic_triggers}")
+    print(f"  • Voies altérées : {report.intermediate_pathways}")
+    print(f"  • Manifestations : {report.clinical_manifestations}")
+    print(f"  • Thérapeutiques : {report.therapeutic_targets}")
+    print("\n  [Chaînes Causales Multi-Échelles du Graphe] :")
+    for ch in report.causal_chains_diagram[:3]:
+        print(f"    -> {ch}")
+    print("\n  [Citations Certifiées] :")
+    for c in report.citations[:4]:
+        print(f"    * {c}")
+
+def demo_evaluation_benchmark():
+    print_header("6. Exécution du Benchmark Évaluatif (Standard RAG vs GraphRAG)")
+    from src.rag.evaluate_rag import evaluate_system
+    evaluate_system()
+
 def main():
     while True:
-        print_header("Démonstrateur PFA - Phase 2 (Graphe & Base Vectorielle)")
+        print_header("Démonstrateur PFA - Pipeline GraphRAG Biomédical (Phases 2 & 3)")
         print("  1. Vue d'ensemble et métriques du projet")
         print("  2. Lancer la suite de tests automatisée (Passage à 100%)")
         print("  3. Tester la recherche vectorielle sémantique (MedQuAD + PubMedBERT)")
         print("  4. Explorer les chaînes causales du Knowledge Graph")
-        print("  5. Lancer toute la démonstration en continu")
+        print("  5. Poser une question clinique en direct au Pipeline GraphRAG (Phase 3)")
+        print("  6. Lancer le Benchmark Évaluatif (Standard RAG vs GraphRAG)")
+        print("  7. Lancer toute la démonstration en continu")
         print("  Q. Quitter")
         
-        choice = input("\nVotre choix [1-5 / Q] : ").strip().upper()
+        choice = input("\nVotre choix [1-7 / Q] : ").strip().upper()
         if choice == "1":
             demo_summary()
         elif choice == "2":
@@ -111,10 +137,16 @@ def main():
         elif choice == "4":
             demo_graph_causal()
         elif choice == "5":
+            demo_graphrag_pipeline()
+        elif choice == "6":
+            demo_evaluation_benchmark()
+        elif choice == "7":
             demo_summary()
             demo_pipeline_test()
             demo_vector_search()
             demo_graph_causal()
+            demo_graphrag_pipeline()
+            demo_evaluation_benchmark()
         elif choice == "Q":
             print("\nFin de la démonstration.")
             break
@@ -129,5 +161,6 @@ if __name__ == "__main__":
         demo_pipeline_test()
         demo_vector_search()
         demo_graph_causal()
+        demo_graphrag_pipeline()
     else:
         main()

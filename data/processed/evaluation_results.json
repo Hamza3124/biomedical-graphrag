@@ -8,14 +8,14 @@
       "pathways_count": 0,
       "causal_chains_count": 0,
       "citations_count": 3,
-      "latency_sec": 0.197
+      "latency_sec": 0.206
     },
     "hybrid_graphrag": {
       "genes_count": 2,
       "pathways_count": 0,
       "causal_chains_count": 6,
       "citations_count": 7,
-      "latency_sec": 0.215,
+      "latency_sec": 0.188,
       "causal_chains_sample": [
         "(Alzheimer's disease) ==[DOWNREGULATES]==> (Gene: APP) ==[PARTICIPATES_IN]==> (Pathway: G alpha (q) signalling events)",
         "(Alzheimer's disease) ==[DOWNREGULATES]==> (Gene: APP) ==[PARTICIPATES_IN]==> (Pathway: G alpha (i) signalling events)"
@@ -31,14 +31,14 @@
       "pathways_count": 0,
       "causal_chains_count": 0,
       "citations_count": 3,
-      "latency_sec": 0.21
+      "latency_sec": 0.201
     },
     "hybrid_graphrag": {
       "genes_count": 1,
       "pathways_count": 0,
       "causal_chains_count": 7,
       "citations_count": 7,
-      "latency_sec": 0.246,
+      "latency_sec": 0.19,
       "causal_chains_sample": [
         "(Alzheimer's disease) ==[ASSOCIATES_WITH]==> (Gene: INS) ==[PARTICIPATES_IN]==> (Pathway: SREBP signalling)",
         "(Alzheimer's disease) ==[ASSOCIATES_WITH]==> (Gene: INS) ==[PARTICIPATES_IN]==> (Pathway: Adipogenesis)"
@@ -54,14 +54,14 @@
       "pathways_count": 0,
       "causal_chains_count": 0,
       "citations_count": 3,
-      "latency_sec": 0.209
+      "latency_sec": 0.2
     },
     "hybrid_graphrag": {
       "genes_count": 5,
       "pathways_count": 0,
       "causal_chains_count": 6,
       "citations_count": 7,
-      "latency_sec": 0.199,
+      "latency_sec": 0.185,
       "causal_chains_sample": [
         "(Alzheimer's disease) ==[DOWNREGULATES]==> (Gene: CDC7) ==[PARTICIPATES_IN]==> (Pathway: DNA Replication)",
         "(Alzheimer's disease) ==[DOWNREGULATES]==> (Gene: CDC7) ==[PARTICIPATES_IN]==> (Pathway: Mitotic M-M/G1 phases)"
@@ -77,14 +77,14 @@
       "pathways_count": 0,
       "causal_chains_count": 0,
       "citations_count": 3,
-      "latency_sec": 0.209
+      "latency_sec": 0.192
     },
     "hybrid_graphrag": {
       "genes_count": 1,
       "pathways_count": 0,
       "causal_chains_count": 2,
       "citations_count": 7,
-      "latency_sec": 0.237,
+      "latency_sec": 0.179,
       "causal_chains_sample": [
         "(Alzheimer's disease) ==[ASSOCIATES_WITH]==> (Gene: MAPT) ==[PARTICIPATES_IN]==> (Pathway: Signaling mediated by p38-gamma and p38-delta)",
         "(Alzheimer's disease) ==[ASSOCIATES_WITH]==> (Gene: MAPT) ==[PARTICIPATES_IN]==> (Pathway: Copper homeostasis)"
@@ -100,14 +100,14 @@
       "pathways_count": 0,
       "causal_chains_count": 0,
       "citations_count": 3,
-      "latency_sec": 0.191
+      "latency_sec": 0.183
     },
     "hybrid_graphrag": {
       "genes_count": 1,
       "pathways_count": 0,
       "causal_chains_count": 2,
       "citations_count": 7,
-      "latency_sec": 0.195,
+      "latency_sec": 0.194,
       "causal_chains_sample": [
         "(Alzheimer's disease) ==[ASSOCIATES_WITH]==> (Gene: APOE) ==[PARTICIPATES_IN]==> (Pathway: Lipid and lipoprotein metabolism)",
         "(Alzheimer's disease) ==[ASSOCIATES_WITH]==> (Gene: APOE) ==[PARTICIPATES_IN]==> (Pathway: Composition of Lipid Particles)"
