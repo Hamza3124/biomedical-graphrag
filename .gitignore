@@ -1,0 +1,33 @@
+# Python virtual environment & caches
+venv/
+env/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# Raw large datasets (downloadable via instructions)
+hetionet-main/
+MedQuAD-master/
+PrimeKG-Plus-main/
+data/raw/
+
+# Vector stores & database dumps
+data/vector_store/
+*.sqlite3
+*.bin
+*.dump
+*.tar.bz2
+*.zip
+
+# Environment & credentials
+.env
+*.local
+
+# IDE & OS caches
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,67 @@
+{
+  "total_nodes": 4503,
+  "total_edges": 19911,
+  "nodes_by_type": {
+    "SideEffect": 1415,
+    "Pathway": 1222,
+    "Gene": 917,
+    "Compound": 820,
+    "Symptom": 58,
+    "Anatomy": 58,
+    "Disease": 13
+  },
+  "edges_by_relation": {
+    "CAUSES": 5645,
+    "PARTICIPATES_IN": 5379,
+    "REGULATES": 2548,
+    "UPREGULATES": 1756,
+    "INTERACTS_WITH": 1554,
+    "DOWNREGULATES": 1242,
+    "BINDS": 1158,
+    "ASSOCIATES_WITH": 471,
+    "MANIFESTS": 58,
+    "LOCALIZES_IN": 58,
+    "TREATS": 26,
+    "RESEMBLES": 11,
+    "PALLIATES": 5
+  },
+  "edges_by_causal_type": {
+    "adverse_effect": 5645,
+    "mechanism": 5379,
+    "regulation": 2548,
+    "interaction": 1554,
+    "target_activation": 1505,
+    "target_binding": 1158,
+    "target_inhibition": 992,
+    "association": 471,
+    "induction": 251,
+    "inhibition": 250,
+    "manifestation": 58,
+    "localization": 58,
+    "therapeutic": 26,
+    "similarity": 11,
+    "palliative": 5
+  },
+  "edges_by_hop": {
+    "2": 18781,
+    "1": 1130
+  },
+  "target_diseases": [
+    "Disease::DOID:10652",
+    "Disease::DOID:9352"
+  ],
+  "sample_causal_paths": [
+    {
+      "path_type": "Disease -> Gene -> Pathway",
+      "example": "Alzheimer's disease -> MAPT -> Alzheimers Disease Pathway"
+    },
+    {
+      "path_type": "Compound -> Treats -> Disease & Binds -> Gene",
+      "example": "Donepezil -> TREATS -> Alzheimer's disease | Donepezil -> BINDS -> ACHE"
+    },
+    {
+      "path_type": "Cross-disease common metabolic link",
+      "example": "Alzheimer's disease & Type 2 Diabetes -> Shared Genes: AKT1, IRS1, INS"
+    }
+  ]
+}
