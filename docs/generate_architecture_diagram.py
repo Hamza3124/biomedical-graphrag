@@ -1,166 +1,205 @@
 """
 Script de génération de l'architecture du projet GraphRAG Biomédical en image haute résolution (300 DPI).
-PFA (5IADA - EMSI) - Diseases Cause Oriented Analysis using RAG and Knowledge Graphs.
+Projet PFA (5IADA - EMSI) : "Diseases Cause Oriented Analysis using RAG and Knowledge Graphs"
+Auteurs : Hamza Essamoudi • Salma Ouahman • Ghita El Hajjouji
 """
 
 import os
+import tempfile
 from pathlib import Path
+
+# Prevent Matplotlib cache warnings
+os.environ["MPLCONFIGDIR"] = tempfile.gettempdir()
+
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-from matplotlib.patches import FancyBboxPatch, ArrowStyle
+from matplotlib.patches import FancyBboxPatch
 
-# Configure output directory
+# Configuration des chemins
 BASE_DIR = Path(__file__).resolve().parent.parent
 DOCS_DIR = BASE_DIR / "docs"
 DOCS_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUT_IMG = DOCS_DIR / "architecture_graphrag.png"
 
 def create_architecture_diagram():
-    # Figure setup (16:9 aspect ratio, 300 DPI)
-    fig, ax = plt.subplots(figsize=(18, 10.5), dpi=300)
+    # Figure setup (16:9 widescreen, 300 DPI pour rendu ultra net)
+    fig, ax = plt.subplots(figsize=(19, 11), dpi=300)
     ax.set_xlim(0, 100)
     ax.set_ylim(0, 100)
     ax.axis("off")
 
-    # Background color (subtle off-white/light-slate)
-    fig.patch.set_facecolor("#0F172A") # Deep Slate Navy
-    ax.set_facecolor("#0F172A")
+    # Fond d'écran sombre élégant (Deep Slate Navy)
+    BG_COLOR = "#0B1120"
+    fig.patch.set_facecolor(BG_COLOR)
+    ax.set_facecolor(BG_COLOR)
 
-    # Fonts & Colors palette
+    # Palette de couleurs professionnelle
     COLOR_TITLE = "#F8FAFC"
+    COLOR_AUTHOR = "#38BDF8"
     COLOR_SUBTITLE = "#94A3B8"
-    COLOR_BORDER = "#334155"
     
-    # 5 Major Layer Colors
-    COLOR_LAYER1 = "#1E293B" # ETL & Data
-    COLOR_LAYER2_G = "#0F766E" # Knowledge Graph (Teal)
-    COLOR_LAYER2_V = "#4338CA" # Vector Store (Indigo)
-    COLOR_LAYER3 = "#0284C7" # Hybrid Retriever (Sky Blue)
-    COLOR_LAYER4 = "#D97706" # Context Fusion (Amber)
-    COLOR_LAYER5 = "#059669" # LLM Causal Generator (Emerald)
+    # Couleurs par étape
+    COLOR_STEP1 = "#0284C7"     # Étape 1 : ETL (Sky Blue)
+    COLOR_STEP2_KG = "#0D9488"  # Étape 2A : Neo4j (Teal)
+    COLOR_STEP2_V = "#6366F1"   # Étape 2B : Base Vectorielle (Indigo)
+    COLOR_STEP3 = "#D97706"     # Étape 3 : GraphRAG Hybrid (Amber)
+    COLOR_STEP4_5 = "#059669"   # Étape 4 & 5 : Raisonnement & UI (Emerald)
 
-    # 1. Main Header
-    ax.text(50, 96.5, "ARCHITECTURE DU SYSTÈME HYBRIDE GRAPHRAG BIOMÉDICAL", 
+    # -------------------------------------------------------------------------
+    # EN-TÊTE PRINCIPAL
+    # -------------------------------------------------------------------------
+    ax.text(50, 97.2, "ARCHITECTURE DU SYSTÈME HYBRIDE GRAPHRAG BIOMÉDICAL", 
             ha="center", va="center", fontsize=20, fontweight="bold", color=COLOR_TITLE, fontfamily="sans-serif")
-    ax.text(50, 93.5, "Hamza Essamoudi  •  Salma Ouahman  •  Ghita El Hajjouji  |  Projet PFA - 5IADA (EMSI)", 
-            ha="center", va="center", fontsize=11.5, fontweight="bold", color="#38BDF8", fontfamily="sans-serif")
+    
+    ax.text(50, 94.4, "Hamza Essamoudi   •   Salma Ouahman   •   Ghita El Hajjouji    |    Projet PFA — 5IADA (EMSI)", 
+            ha="center", va="center", fontsize=11.5, fontweight="bold", color=COLOR_AUTHOR, fontfamily="sans-serif")
+    
+    ax.text(50, 91.8, "Analyse Causale Multi-Échelles : Maladie d'Alzheimer (DOID:10652) • Diabète Type 2 (DOID:9352) • Ontologie Human Lifestyle", 
+            ha="center", va="center", fontsize=9.2, fontstyle="italic", color=COLOR_SUBTITLE, fontfamily="sans-serif")
 
-    # Helper function to draw rounded boxes
-    def draw_box(x, y, w, h, bg_color, border_color="#475569", radius=1.5, alpha=0.95):
+    # Fonction utilitaire pour boîtes arrondies
+    def draw_box(x, y, w, h, bg_color, border_color="#475569", radius=1.2, alpha=0.95, lw=1.5):
         rect = FancyBboxPatch((x, y), w, h,
-                              boxstyle=f"round,pad=0.3,rounding_size={radius}",
-                              facecolor=bg_color, edgecolor=border_color, linewidth=1.5, alpha=alpha, zorder=2)
+                              boxstyle=f"round,pad=0.25,rounding_size={radius}",
+                              facecolor=bg_color, edgecolor=border_color, linewidth=lw, alpha=alpha, zorder=2)
         ax.add_patch(rect)
         return rect
 
-    # Helper function for tech badges
-    def draw_badge(x, y, text, color="#38BDF8", bg="#0F172A"):
-        ax.text(x, y, f" {text} ", ha="center", va="center", fontsize=8.5, fontweight="bold",
-                color=color, bbox=dict(boxstyle="round,pad=0.2", facecolor=bg, edgecolor=color, linewidth=1.0), zorder=5)
+    # Fonction utilitaire pour badges technologiques
+    def draw_badge(x, y, text, color="#38BDF8", bg="#030712", fs=8.0):
+        ax.text(x, y, f"  {text}  ", ha="center", va="center", fontsize=fs, fontweight="bold",
+                color=color, bbox=dict(boxstyle="round,pad=0.22", facecolor=bg, edgecolor=color, linewidth=1.0), zorder=5)
 
     # =========================================================================
-    # ÉTAPE 1 : SOURCES DE DONNÉES & PIPELINE ETL
+    # ÉTAPE 1 : SOURCES MULTI-ONTOLOGIES & PIPELINE ETL
     # =========================================================================
-    draw_box(4, 53, 25, 36, COLOR_LAYER1, border_color="#38BDF8")
-    ax.text(16.5, 86, "ÉTAPE 1 : ETL & HARMONISATION", ha="center", va="center", fontsize=12, fontweight="bold", color="#38BDF8")
-    ax.text(16.5, 83.5, "Acquisition & Normalisation Multi-Ontologies", ha="center", va="center", fontsize=9, color="#94A3B8")
+    draw_box(3, 44, 28, 45.5, "#0F172A", border_color=COLOR_STEP1, lw=2.0)
+    ax.text(17, 87.5, "ÉTAPE 1 : ACQUISITION & ETL MULTI-ONTOLOGIES", ha="center", va="center", fontsize=11, fontweight="bold", color="#38BDF8")
+    ax.text(17, 85.5, "Harmonisation Multi-Sources & Normalisation CUI/MeSH", ha="center", va="center", fontsize=8, color="#94A3B8")
 
-    # Sub-cards
-    # PrimeKG & Hetionet
-    draw_box(6, 68, 21, 13, "#334155", "#64748B")
-    ax.text(16.5, 78, "Réseaux Biomédicaux Relations", ha="center", va="center", fontsize=10, fontweight="bold", color="#F1F5F9")
-    ax.text(16.5, 75, "• PrimeKG-Plus (Ontologies & Mappings)\n• Hetionet v1.0 (2,25M arêtes globales)\n• DOID, UMLS, MeSH, Entrez, Reactome", 
-            ha="center", va="center", fontsize=8.2, color="#CBD5E1")
-    draw_badge(16.5, 69.5, "Python 3.12 | Pandas | Git LFS", color="#38BDF8")
+    # 1.1 Réseaux Biomédicaux
+    draw_box(4.5, 73.5, 25, 10.5, "#1E293B", "#475569")
+    ax.text(17, 81.5, "1.1 Réseaux Biomédicaux Relationnels", ha="center", va="center", fontsize=9.2, fontweight="bold", color="#F8FAFC")
+    ax.text(17, 77.5, "• PrimeKG-Plus (Ontologies & mappings)\n• Hetionet v1.0 (2,25M arêtes globales)\n• DOID, UMLS, MeSH, Entrez Gene, Reactome", 
+            ha="center", va="center", fontsize=7.6, color="#CBD5E1")
+    draw_badge(17, 74.0, "Python 3.12 | Pandas | Git LFS", color="#38BDF8")
 
-    # MedQuAD
-    draw_box(6, 54.5, 21, 11.5, "#334155", "#64748B")
-    ax.text(16.5, 63, "Littérature Médicale Certifiée", ha="center", va="center", fontsize=10, fontweight="bold", color="#F1F5F9")
-    ax.text(16.5, 60, "• NIH MedQuAD (47 457 QA Pairs)\n• Dossiers NINDS, GHR, NIDDK, MPlus\n• Découpage contextuel [Disease] [QType]", 
-            ha="center", va="center", fontsize=8.2, color="#CBD5E1")
-    draw_badge(16.5, 55.8, "XML Parsing | Chunking Sémantique", color="#A855F7")
+    # 1.2 Human Lifestyle Ontology (NOUVEAU)
+    draw_box(4.5, 59.0, 25, 12.8, "#1E293B", "#0D9488")
+    ax.text(17, 69.2, "1.2 Human Lifestyle Ontology (Nouveau)", ha="center", va="center", fontsize=9.2, fontweight="bold", color="#2DD4BF")
+    ax.text(17, 64.5, "• Arborescence hiérarchique (MeSH D008019)\n• 15 Nœuds (Nutrition, Activité, Sommeil, Stress)\n• 40 Arêtes causales (PROTECTS, AGGRAVATES)\n• Facteurs modifiables & exposition comportementale", 
+            ha="center", va="center", fontsize=7.5, color="#CCFBF1")
+    draw_badge(17, 59.8, "MeSH D008019 | UMLS C0023674 | Causal Rules", color="#2DD4BF")
+
+    # 1.3 Littérature Médicale Certifiée
+    draw_box(4.5, 45.2, 25, 12.2, "#1E293B", "#475569")
+    ax.text(17, 55.2, "1.3 Littérature Médicale Certifiée", ha="center", va="center", fontsize=9.2, fontweight="bold", color="#F8FAFC")
+    ax.text(17, 50.8, "• NIH MedQuAD (47 457 Q/R cliniques)\n• Dossiers ciblés : NINDS, GHR, NIDDK, SeniorHealth\n• Chunking sémantique contextualisé [Disease] [QType]\n• 719 Chunks (190 focalisés sur prévention & mode de vie)", 
+            ha="center", va="center", fontsize=7.4, color="#CBD5E1")
+    draw_badge(17, 46.0, "XML Parsing | Chunking Contextualisé", color="#A855F7")
 
     # =========================================================================
-    # ÉTAPE 2 : KNOWLEDGE GRAPH (NEO4J) & BASE VECTORIELLE (CHROMADB)
+    # ÉTAPE 2 : STOCKAGE RELATIONNEL ET BASE VECTORIELLE DENSE
     # =========================================================================
-    # Branch A: Knowledge Graph
-    draw_box(33, 68, 30, 21, "#115E59", border_color="#2DD4BF")
-    ax.text(48, 86, "ÉTAPE 2A : KNOWLEDGE GRAPH CAUSAL", ha="center", va="center", fontsize=12, fontweight="bold", color="#2DD4BF")
-    ax.text(48, 83.5, "Topologie Relationnelle & Causalité Multi-Échelles", ha="center", va="center", fontsize=9, color="#CCFBF1")
-    ax.text(48, 77.5, "• 4 503 Nœuds uniques (Disease, Gene, Pathway, Compound...)\n• 19 911 Relations typées (PPI, régulations, cibles, phénotypes)\n• 772 Arêtes directes Alzheimer (APP, PSEN1, APOE, MAPT)\n• Ingestion Batch UNWIND & Contraintes d'intégrité", 
-            ha="center", va="center", fontsize=8.5, color="#F0FDFA")
-    draw_badge(48, 70, "Neo4j 5.26 | Cypher | APOC | Docker Compose", color="#2DD4BF")
+    draw_box(34.5, 44, 30.5, 45.5, "#0F172A", border_color="#14B8A6", lw=2.0)
+    ax.text(49.7, 87.5, "ÉTAPE 2 : STOCKAGE & INDEXATION DUAL-CORE", ha="center", va="center", fontsize=11, fontweight="bold", color="#2DD4BF")
+    ax.text(49.7, 85.5, "Graphe de Causalité Relationnelle & Espace Dense Sémantique", ha="center", va="center", fontsize=8, color="#94A3B8")
 
-    # Branch B: Vector Store
-    draw_box(33, 44, 30, 21, "#312E81", border_color="#818CF8")
-    ax.text(48, 62, "ÉTAPE 2B : BASE VECTORIELLE DENSE", ha="center", va="center", fontsize=12, fontweight="bold", color="#818CF8")
-    ax.text(48, 59.5, "Indexation Sémantique des Connaissances NIH", ha="center", va="center", fontsize=9, color="#E0E7FF")
-    ax.text(48, 53.5, "• 719 Chunks contextuels MedQuAD enrichis\n• Embeddings biomédicaux PubMedBERT (768 dimensions)\n• Métadonnées cliniques : disease_name, qtype, doc_id\n• Recherche de similarité cosinus normalisée", 
-            ha="center", va="center", fontsize=8.5, color="#EEF2FF")
-    draw_badge(48, 46, "PubMedBERT | Sentence-Transformers | ChromaDB / Qdrant", color="#818CF8")
+    # 2A : Knowledge Graph Causal (Neo4j)
+    draw_box(36, 67.5, 27.5, 16.5, "#042F2E", "#14B8A6")
+    ax.text(49.7, 81.5, "2A. Knowledge Graph Causal (Neo4j)", ha="center", va="center", fontsize=9.5, fontweight="bold", color="#5EEAD4")
+    ax.text(49.7, 75.0, "• 4 518 Nœuds uniques (9 labels hiérarchisés)\n• 19 951 Relations causales & fonctionnelles (17 types)\n• 15 Nœuds Lifestyle reliés directement aux maladies\n• 36 Gènes partagés Diabète-Alzheimer (Hypothèse T3D)\n• Ingestion batch UNWIND & contraintes d'intégrité", 
+            ha="center", va="center", fontsize=7.6, color="#E6FFFA")
+    draw_badge(49.7, 68.3, "Neo4j 5.26 | Cypher | APOC | Docker Compose", color="#2DD4BF")
+
+    # 2B : Base Vectorielle Clinique Dense
+    draw_box(36, 45.2, 27.5, 20.5, "#1E1B4B", "#818CF8")
+    ax.text(49.7, 63.2, "2B. Base Vectorielle Clinique Dense", ha="center", va="center", fontsize=9.5, fontweight="bold", color="#A5B4FC")
+    ax.text(49.7, 55.2, "• 719 Chunks contextuels MedQuAD indexés\n• Modèle biomédical NeuML/pubmedbert-base-embeddings\n• Espace vectoriel dense certifié : 768 dimensions\n• Métadonnées cliniques (qtype, source, disease, focus)\n• Architecture hybride de persistance :\n  - ChromaDB : moteur embarqué local sans dépendance\n  - Qdrant : microservice Docker pour production", 
+            ha="center", va="center", fontsize=7.5, color="#EEF2FF")
+    draw_badge(49.7, 46.2, "PubMedBERT (768d) | ChromaDB | Qdrant Docker", color="#818CF8")
 
     # =========================================================================
     # ÉTAPE 3 : RETRIEVER HYBRIDE & FUSION DE CONTEXTE
     # =========================================================================
-    draw_box(67, 53, 29, 36, "#0369A1", border_color="#38BDF8")
-    ax.text(81.5, 86, "ÉTAPE 3 : MOTEUR HYBRIDE GRAPHRAG", ha="center", va="center", fontsize=12, fontweight="bold", color="#38BDF8")
-    ax.text(81.5, 83.5, "Traversée de Graphe k-Hop + Recherche Vectorielle", ha="center", va="center", fontsize=9, color="#BAE6FD")
+    draw_box(68.5, 44, 28.5, 45.5, "#0F172A", border_color=COLOR_STEP3, lw=2.0)
+    ax.text(82.7, 87.5, "ÉTAPE 3 : MOTEUR HYBRIDE GRAPHRAG", ha="center", va="center", fontsize=11, fontweight="bold", color="#FBBF24")
+    ax.text(82.7, 85.5, "Traversée k-Hop Ciblée + Recherche Vectorielle Dense", ha="center", va="center", fontsize=8, color="#94A3B8")
 
-    # Sub-card: Entity Linker & Hybrid Retriever
-    draw_box(68.5, 68, 26, 13, "#0C4A6E", "#0284C7")
-    ax.text(81.5, 78, "Retrieval Conjoint Structuré / Dense", ha="center", va="center", fontsize=10, fontweight="bold", color="#F0F9FF")
-    ax.text(81.5, 74.5, "• BiomedicalEntityLinker (Regex, alias, symboles)\n• Traçage k-hop : (Maladie)->(Gènes)->(Voies)->(Phénotype)\n• Axe Diabète-Alzheimer : 36 gènes partagés\n• Top-k Chunks MedQuAD avec score de pertinence", 
-            ha="center", va="center", fontsize=8.2, color="#E0F2FE")
-    draw_badge(81.5, 69.5, "LocalGraphEngine | HybridRetriever", color="#38BDF8")
+    # 3.1 Retrieval Conjoint
+    draw_box(70, 67.5, 25.5, 16.5, "#451A03", "#F59E0B")
+    ax.text(82.7, 81.5, "3.1 Retrieval Conjoint Structuré / Dense", ha="center", va="center", fontsize=9.5, fontweight="bold", color="#FDE68A")
+    ax.text(82.7, 75.0, "• BiomedicalEntityLinker (30+ alias & concepts)\n• Traçage k-hop : (Lifestyle) → (Gènes) → (Voies) → (Maladie)\n• Passerelle métabolique : 36 gènes partagés (IRS1, AKT1, TNF)\n• Recherche vectorielle par similarité cosinus (Top-k)\n• Scores combinés de pertinence contextuelle", 
+            ha="center", va="center", fontsize=7.6, color="#FEF3C7")
+    draw_badge(82.7, 68.3, "HybridRetriever | LocalGraphEngine", color="#FBBF24")
 
-    # Sub-card: Context Fusion Engine
-    draw_box(68.5, 54.5, 26, 11.5, "#0C4A6E", "#0284C7")
-    ax.text(81.5, 63, "Fusion & Formateur Causal", ha="center", va="center", fontsize=10, fontweight="bold", color="#F0F9FF")
-    ax.text(81.5, 59.8, "• Linéarisation des triplets causaux & chemins\n• Structuration conjointe (Faits structurés + Texte NIH)\n• Élimination des hallucinations et sauts logiques", 
-            ha="center", va="center", fontsize=8.2, color="#E0F2FE")
-    draw_badge(81.5, 55.8, "ContextFusionEngine | Pydantic", color="#F59E0B")
-
-    # =========================================================================
-    # ÉTAPE 4 & 5 : RAISONNEMENT CAUSAL, SYNTHÈSE LLM & ÉVALUATION
-    # =========================================================================
-    draw_box(4, 5, 92, 34, "#064E3B", border_color="#34D399")
-    ax.text(50, 36, "ÉTAPE 4 & 5 : RAISONNEMENT CAUSAL MULTI-ÉCHELLES & ÉVALUATION COMPARATIVE", 
-            ha="center", va="center", fontsize=13, fontweight="bold", color="#34D399")
-    ax.text(50, 33.5, "Génération d'Explications Causales Sourcées & Benchmarking Rigoureux", 
-            ha="center", va="center", fontsize=9.5, color="#A7F3D0")
-
-    # Column 1: Causal Generator
-    draw_box(6, 9, 28, 22, "#022C22", "#059669")
-    ax.text(20, 28, "Moteur de Synthèse Causale", ha="center", va="center", fontsize=10.5, fontweight="bold", color="#6EE7B7")
-    ax.text(20, 20.5, "1. Déclencheurs étiologiques (Mutations APP, PSEN1, APOE)\n2. Cascades intermédiaires (Apoptose, métabolisme)\n3. Tableau clinique (Pertes de mémoire, démence)\n4. Repositionnement (Donepezil, Memantine)\n5. Traçabilité (Triplets graphe + DocIDs NIH)", 
-            ha="center", va="center", fontsize=8.0, color="#ECFDF5")
-    draw_badge(20, 11, "CausalGenerator | LLM Routing (Gemini/OpenAI)", color="#34D399")
-
-    # Column 2: Benchmark Evaluation
-    draw_box(36, 9, 30, 22, "#022C22", "#059669")
-    ax.text(51, 28, "Évaluation : Standard RAG vs GraphRAG", ha="center", va="center", fontsize=10.5, fontweight="bold", color="#6EE7B7")
-    ax.text(51, 20.5, "• Chaînes causales tracées : 0 (Standard) vs 23 (GraphRAG)\n• Couverture des voies métaboliques : +100% via le graphe\n• Triplets et citations d'évidences : 15 vs 35\n• Traçabilité complète et reproductibilité certifiée\n• Rapport automatisé : evaluation_results.json", 
-            ha="center", va="center", fontsize=8.0, color="#ECFDF5")
-    draw_badge(51, 11, "Benchmark Suite | evaluate_rag.py", color="#F59E0B")
-
-    # Column 3: Interfaces & Démonstration
-    draw_box(68, 9, 26, 22, "#022C22", "#059669")
-    ax.text(81, 28, "Interfaces & Déploiement", ha="center", va="center", fontsize=10.5, fontweight="bold", color="#6EE7B7")
-    ax.text(81, 20.5, "• Démonstrateur interactif clé en main (demo.py)\n• Lanceur Windows autonome (run_demo.bat)\n• Suite de tests globale (test_pipeline.py)\n• Dépôt Git : Hamza3124/biomedical-graphrag\n• Documentation académique complète (README)", 
-            ha="center", va="center", fontsize=8.0, color="#ECFDF5")
-    draw_badge(81, 11, "Docker | CLI Interactif | Git / GitHub", color="#38BDF8")
+    # 3.2 Fusion de Contexte & Linéarisation Causal
+    draw_box(70, 45.2, 25.5, 20.5, "#451A03", "#F59E0B")
+    ax.text(82.7, 63.2, "3.2 Fusion & Structuration Causal", ha="center", va="center", fontsize=9.5, fontweight="bold", color="#FDE68A")
+    ax.text(82.7, 55.2, "• Linéarisation ordonnée des triplets relationnels\n• Structuration conjointe (Graphe formel + Extraits NIH)\n• Élimination documentée des hallucinations médicales\n• Éradication des ruptures déductives et faux liens\n• Préparation du prompt enrichi avec citations traçables", 
+            ha="center", va="center", fontsize=7.6, color="#FEF3C7")
+    draw_badge(82.7, 46.2, "ContextFusionEngine | Pydantic Schema", color="#F59E0B")
 
     # =========================================================================
-    # CONNECTING ARROWS & DATA FLOWS
+    # ÉTAPES 4 & 5 : RAISONNEMENT CAUSAL, BENCHMARK & APPLICATION STREAMLIT
     # =========================================================================
-    def draw_arrow(x1, y1, x2, y2, color="#38BDF8", style="->", rad=0.0):
+    draw_box(3, 4, 94, 36.5, "#064E3B", border_color="#10B981", lw=2.0)
+    ax.text(50, 37.8, "ÉTAPE 4 & 5 : RAISONNEMENT CAUSAL MULTI-ÉCHELLES, BENCHMARK & INTERFACES UTILISATEUR", 
+            ha="center", va="center", fontsize=11.5, fontweight="bold", color="#6EE7B7")
+    ax.text(50, 36.0, "Synthèse Clinique Explicable, Validation Expérimentale & Déploiement Multi-Canaux", 
+            ha="center", va="center", fontsize=8.2, color="#A7F3D0")
+
+    # Colonne 1 : Moteur de Raisonnement Causal
+    draw_box(4.5, 5.8, 28.5, 28.5, "#022C22", "#059669")
+    ax.text(18.7, 31.8, "Moteur de Synthèse Causale", ha="center", va="center", fontsize=9.8, fontweight="bold", color="#6EE7B7")
+    ax.text(18.7, 20.5, "Raisonnement explicable en 5 étapes articulées :\n\n"
+                        "1. Déclencheurs étiologiques (APP, PSEN1, APOE, facteurs de risque)\n"
+                        "2. Cascades intermédiaires (Résistance insuline, neuro-inflammation)\n"
+                        "3. Impact Lifestyle : Neuroprotection (BDNF) vs Toxicité (TNF)\n"
+                        "4. Tableau clinique (Plaques amyloïdes, perte synaptique, mémoire)\n"
+                        "5. Repositionnement (Donepezil, Memantine, Metformine, Diète)\n"
+                        "6. Traçabilité absolue : Triplets graphe & identifiants NIH MedQuAD", 
+            ha="center", va="center", fontsize=7.3, color="#ECFDF5")
+    draw_badge(18.7, 7.5, "CausalGenerator | LLM Routing (Gemini / Déterministe)", color="#34D399")
+
+    # Colonne 2 : Benchmark d'Évaluation Rigoureux
+    draw_box(35.5, 5.8, 28.5, 28.5, "#022C22", "#059669")
+    ax.text(49.7, 31.8, "Benchmark : Standard RAG vs GraphRAG", ha="center", va="center", fontsize=9.8, fontweight="bold", color="#6EE7B7")
+    ax.text(49.7, 20.5, "Comparatif quantitatif sur 5 cas cliniques complexes :\n\n"
+                        "• Chaînes causales tracées : 0 (Standard RAG) vs 23 (GraphRAG)\n"
+                        "• Couverture des voies métaboliques : +100% via le graphe\n"
+                        "• Triplets et citations d'évidences : 15 (Standard) vs 35 (GraphRAG)\n"
+                        "• Connexions croisées Diabète-Alzheimer : 0 vs 100% identifiées\n"
+                        "• Traçabilité complète et reproductibilité certifiée\n"
+                        "• Fichier de résultats généré : data/processed/evaluation_results.json", 
+            ha="center", va="center", fontsize=7.3, color="#ECFDF5")
+    draw_badge(49.7, 7.5, "evaluate_rag.py | Benchmark Suite | 5 Cas Cliniques", color="#F59E0B")
+
+    # Colonne 3 : Interfaces Utilisateur & Déploiement
+    draw_box(66.5, 5.8, 28.5, 28.5, "#022C22", "#059669")
+    ax.text(80.7, 31.8, "Interfaces Utilisateur & Déploiement", ha="center", va="center", fontsize=9.8, fontweight="bold", color="#6EE7B7")
+    ax.text(80.7, 20.5, "Écosystème interactif clé en main pour encadrant / jury :\n\n"
+                        "• Application Web Interactive Streamlit (app.py & run_app.bat) :\n"
+                        "  - Onglet 1 : Chatbot GraphRAG avec streaming & citations\n"
+                        "  - Onglet 2 : Visualiseur 2D/3D (36 gènes communs & lifestyle)\n"
+                        "  - Onglet 3 : Dashboard d'évaluation Standard RAG vs GraphRAG\n"
+                        "  - Onglet 4 : Documentation & architecture détaillée\n"
+                        "• CLI Interactif (src/rag/cli.py) & Démo console (demo.py)\n"
+                        "• Dépôt GitHub : Hamza3124/biomedical-graphrag (Branch main)", 
+            ha="center", va="center", fontsize=7.2, color="#ECFDF5")
+    draw_badge(80.7, 7.5, "Streamlit (app.py) | CLI | Docker | GitHub CI", color="#38BDF8")
+
+    # =========================================================================
+    # FLÈCHES DE FLUX DIRECTIONNELLES (DATAFLOW ARROWS)
+    # =========================================================================
+    def draw_arrow(x1, y1, x2, y2, color="#38BDF8", rad=0.0):
         connection = f"arc3,rad={rad}" if rad != 0 else "arc3,rad=0"
         arrow = patches.FancyArrowPatch(
             (x1, y1), (x2, y2),
             arrowstyle="-|>",
-            mutation_scale=18,
+            mutation_scale=16,
             color=color,
             linewidth=2.0,
             connectionstyle=connection,
@@ -169,26 +208,26 @@ def create_architecture_diagram():
         ax.add_patch(arrow)
 
     # ETL -> Knowledge Graph
-    draw_arrow(29, 78.5, 33, 78.5, color="#2DD4BF")
-    ax.text(31, 80, "Triplets\nCSVs", ha="center", va="center", fontsize=7.5, color="#2DD4BF", fontweight="bold")
+    draw_arrow(31, 75.5, 34.5, 75.5, color="#2DD4BF")
+    ax.text(32.7, 77.2, "Triplets\nCSVs", ha="center", va="center", fontsize=7.2, color="#2DD4BF", fontweight="bold")
 
     # ETL -> Vector Store
-    draw_arrow(29, 60, 33, 54.5, color="#818CF8", rad=-0.1)
-    ax.text(31, 57, "Chunks\nXML", ha="center", va="center", fontsize=7.5, color="#818CF8", fontweight="bold")
+    draw_arrow(31, 55.5, 34.5, 55.5, color="#818CF8")
+    ax.text(32.7, 57.2, "Chunks\nXML", ha="center", va="center", fontsize=7.2, color="#818CF8", fontweight="bold")
 
     # Knowledge Graph -> Hybrid Retriever
-    draw_arrow(63, 78.5, 67, 78.5, color="#2DD4BF")
-    ax.text(65, 80.5, "k-Hop\nPaths", ha="center", va="center", fontsize=7.5, color="#2DD4BF", fontweight="bold")
+    draw_arrow(65, 75.5, 68.5, 75.5, color="#2DD4BF")
+    ax.text(66.7, 77.5, "Chemins k-Hop\n& 36 Gènes", ha="center", va="center", fontsize=7.0, color="#2DD4BF", fontweight="bold")
 
     # Vector Store -> Hybrid Retriever
-    draw_arrow(63, 54.5, 67, 60, color="#818CF8", rad=0.1)
-    ax.text(65, 57, "Top-k\nChunks", ha="center", va="center", fontsize=7.5, color="#818CF8", fontweight="bold")
+    draw_arrow(65, 55.5, 68.5, 55.5, color="#818CF8")
+    ax.text(66.7, 57.5, "Top-k Chunks\nPubMedBERT", ha="center", va="center", fontsize=7.0, color="#818CF8", fontweight="bold")
 
     # Hybrid Retriever -> Causal Generation / Reasoning
-    draw_arrow(81.5, 53, 81.5, 39, color="#F59E0B")
-    ax.text(84, 46, "Fused\nContext", ha="left", va="center", fontsize=8.0, color="#F59E0B", fontweight="bold")
+    draw_arrow(82.7, 44.0, 82.7, 40.5, color="#F59E0B")
+    ax.text(85.5, 42.2, "Contexte Causal Fusionné", ha="left", va="center", fontsize=7.5, color="#FBBF24", fontweight="bold")
 
-    # Output file
+    # Sauvegarde de l'image
     plt.tight_layout()
     plt.savefig(OUTPUT_IMG, facecolor=fig.get_facecolor(), edgecolor="none", dpi=300, bbox_inches="tight")
     plt.close()
@@ -196,4 +235,3 @@ def create_architecture_diagram():
 
 if __name__ == "__main__":
     create_architecture_diagram()
-

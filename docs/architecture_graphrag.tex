@@ -1,7 +1,7 @@
 % ==============================================================================
 % ARCHITECTURE DU SYSTÈME HYBRIDE GRAPHRAG BIOMÉDICAL (LATEX / TIKZ)
 % Projet PFA (5IADA - EMSI) : "Diseases Cause Oriented Analysis using RAG and Knowledge Graphs"
-% Auteur : Hamza (5IADA)
+% Auteurs : Hamza Essamoudi • Salma Ouahman • Ghita El Hajjouji
 % ==============================================================================
 % Instructions d'utilisation :
 % 1. En standalone : compilez directement ce fichier avec pdflatex ou xelatex.
@@ -20,22 +20,27 @@
 % Bibliothèques TikZ nécessaires
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds, shadows.blur}
 
-% Palette de couleurs professionnelles (Charte Modern Slate & Emerald)
-\definecolor{SlateNavy}{HTML}{0F172A}
-\definecolor{SlateCard}{HTML}{1E293B}
-\definecolor{TealPrimary}{HTML}{0F766E}
+% Palette de couleurs professionnelles (Charte Slate Navy, Teal, Indigo & Emerald)
+\definecolor{SlateNavy}{HTML}{0B1120}
+\definecolor{SlateCard}{HTML}{0F172A}
+\definecolor{SlateSubCard}{HTML}{1E293B}
+\definecolor{TealPrimary}{HTML}{042F2E}
 \definecolor{TealBorder}{HTML}{2DD4BF}
-\definecolor{IndigoPrimary}{HTML}{4338CA}
+\definecolor{TealText}{HTML}{5EEAD4}
+\definecolor{IndigoPrimary}{HTML}{1E1B4B}
 \definecolor{IndigoBorder}{HTML}{818CF8}
+\definecolor{IndigoText}{HTML}{A5B4FC}
 \definecolor{SkyPrimary}{HTML}{0369A1}
 \definecolor{SkyBorder}{HTML}{38BDF8}
-\definecolor{AmberPrimary}{HTML}{B45309}
+\definecolor{AmberPrimary}{HTML}{451A03}
 \definecolor{AmberBorder}{HTML}{F59E0B}
-\definecolor{EmeraldPrimary}{HTML}{065F46}
-\definecolor{EmeraldBorder}{HTML}{34D399}
+\definecolor{AmberText}{HTML}{FDE68A}
+\definecolor{EmeraldPrimary}{HTML}{022C22}
+\definecolor{EmeraldBorder}{HTML}{10B981}
+\definecolor{EmeraldText}{HTML}{6EE7B7}
 \definecolor{TextLight}{HTML}{F8FAFC}
 \definecolor{TextMuted}{HTML}{94A3B8}
-\definecolor{BadgeBg}{HTML}{020617}
+\definecolor{BadgeBg}{HTML}{030712}
 
 \begin{document}
 
@@ -50,9 +55,14 @@
         font=\bfseries\Large
     },
     subtitleBox/.style={
+        text=SkyBorder,
+        align=center,
+        font=\bfseries\normalsize
+    },
+    metaBox/.style={
         text=TextMuted,
         align=center,
-        font=\small
+        font=\footnotesize\itshape
     },
     stepCard/.style={
         draw=#1,
@@ -67,7 +77,7 @@
         line width=1pt,
         rounded corners=5pt,
         inner sep=8pt,
-        fill=SlateNavy,
+        fill=SlateSubCard,
         text=TextLight,
         align=left,
         font=\footnotesize
@@ -98,19 +108,21 @@
 ]
 
     % -------------------------------------------------------------------------
-    % TITRE PRINCIPAL
+    % TITRE ET EN-TÊTE PRINCIPAL
     % -------------------------------------------------------------------------
-    \node[titleBox] (mainTitle) at (10, 14.5) {ARCHITECTURE DU PIPELINE HYBRIDE GRAPHRAG BIOMÉDICAL};
+    \node[titleBox] (mainTitle) at (10, 15.2) {ARCHITECTURE DU PIPELINE HYBRIDE GRAPHRAG BIOMÉDICAL};
     \node[subtitleBox, below=0.15cm of mainTitle] (subTitle) {
-        Analyse Causale Multi-Échelles (Alzheimer \& Diabète T2) --- Hamza Essamoudi $\bullet$ Salma Ouahman $\bullet$ Ghita El Hajjouji (5IADA - EMSI)
+        Hamza Essamoudi $\bullet$ Salma Ouahman $\bullet$ Ghita El Hajjouji \quad$|$\quad Projet PFA --- 5IADA (EMSI)
     };
+    \node[metaBox, below=0.12cm of subTitle] (metaLine) {
+        Analyse Causale Multi-Échelles : Maladie d'Alzheimer (DOID:10652) $\bullet$ Diabète Type 2 (DOID:9352) $\bullet$ Ontologie Human Lifestyle
     };
 
     % -------------------------------------------------------------------------
-    % ÉTAPE 1 : ETL & HARMONISATION DES SOURCES
-    % -------------------------------------------------------------------------
-    \node[innerCard=SkyBorder, text width=6.2cm] (etl_sub1) at (3, 10.5) {
-        \textbf{\textcolor{SkyBorder}{\large 1.1 Réseaux Biomédicaux}}\\[3pt]
+    % ÉTAPE 1 : ACQUISITION & ETL MULTI-ONTOLOGIES
+    # -------------------------------------------------------------------------
+    \node[innerCard=SkyBorder, text width=6.2cm] (etl_sub1) at (3, 11.2) {
+        \textbf{\textcolor{SkyBorder}{\normalsize 1.1 Réseaux Biomédicaux}}\\[3pt]
         $\bullet$ \textbf{PrimeKG-Plus} : Ontologies \& Mappings UMLS/MeSH\\
         $\bullet$ \textbf{Hetionet v1.0} : 2,25M arêtes relationnelles\\
         $\bullet$ Harmonisation : DOID, Entrez, MeSH, Reactome\\[4pt]
@@ -119,69 +131,88 @@
         \end{tikzpicture}
     };
 
-    \node[innerCard=SkyBorder, text width=6.2cm, below=0.6cm of etl_sub1] (etl_sub2) {
-        \textbf{\textcolor{SkyBorder}{\large 1.2 Littérature Médicale Certifiée}}\\[3pt]
+    \node[innerCard=TealBorder, text width=6.2cm, below=0.45cm of etl_sub1] (etl_sub2) {
+        \textbf{\textcolor{TealBorder}{\normalsize 1.2 Human Lifestyle Ontology (Nouveau)}}\\[3pt]
+        $\bullet$ \textbf{15 N\oe uds} hiérarchiques (MeSH \texttt{D008019})\\
+        $\bullet$ \textbf{40 Arêtes causales} (\texttt{PROTECTS}, \texttt{AGGRAVATES})\\
+        $\bullet$ Facteurs modifiables : Diet, Exercise, Sleep, Stress\\[4pt]
+        \begin{tikzpicture}
+            \node[badge=TealBorder] {MeSH D008019 | UMLS C0023674 | enrich\_lifestyle.py};
+        \end{tikzpicture}
+    };
+
+    \node[innerCard=SkyBorder, text width=6.2cm, below=0.45cm of etl_sub2] (etl_sub3) {
+        \textbf{\textcolor{SkyBorder}{\normalsize 1.3 Littérature Médicale Certifiée}}\\[3pt]
         $\bullet$ \textbf{NIH MedQuAD} : 47 457 Q/R cliniques révisées\\
         $\bullet$ Dossiers ciblés : NINDS, GHR, NIDDK, SeniorHealth\\
-        $\bullet$ Chunking contextuel enrichi (\texttt{[Disease] [QType]})\\[4pt]
+        $\bullet$ Chunking contextualisé : \textbf{719 Chunks} (190 Lifestyle)\\[4pt]
         \begin{tikzpicture}
-            \node[badge=SkyBorder] {XML Parsing | Chunking Sémantique};
+            \node[badge=SkyBorder] {XML Parsing | Chunking Contextualisé};
         \end{tikzpicture}
     };
 
     \begin{scope}[on background layer]
-        \node[stepCard=SkyBorder, fit={(etl_sub1) (etl_sub2)}, label={[SkyBorder, font=\bfseries\normalsize]above:ÉTAPE 1 : ACQUISITION \& ETL MULTI-ONTOLOGIES}] (card_step1) {};
+        \node[stepCard=SkyBorder, fit={(etl_sub1) (etl_sub2) (etl_sub3)}, label={[SkyBorder, font=\bfseries\normalsize]above:ÉTAPE 1 : ACQUISITION \& ETL MULTI-ONTOLOGIES}] (card_step1) {};
     \end{scope}
 
     % -------------------------------------------------------------------------
-    % ÉTAPE 2A : KNOWLEDGE GRAPH (NEO4J)
+    % ÉTAPE 2A : KNOWLEDGE GRAPH CAUSAL (NEO4J)
     % -------------------------------------------------------------------------
-    \node[innerCard=TealBorder, text width=6.8cm] (kg_box) at (11.5, 11.2) {
-        \textbf{\textcolor{TealBorder}{\large Étape 2A : Knowledge Graph Causal}}\\[3pt]
-        $\bullet$ \textbf{4 503 Nœuds} : Disease, Gene, Pathway, Compound\\
-        $\bullet$ \textbf{19 911 Relations} : ASSOCIATES, INTERACTS, TREATS\\
-        $\bullet$ Ingestion par batch \texttt{UNWIND} \& Contraintes d'unicité\\
-        $\bullet$ Chaînes causales $k$-hop directes \& multi-échelles\\[4pt]
+    \node[innerCard=TealBorder, fill=TealPrimary, text width=6.8cm] (kg_box) at (11.5, 11.5) {
+        \textbf{\textcolor{TealText}{\large 2A. Knowledge Graph Causal (Neo4j)}}\\[3pt]
+        $\bullet$ \textbf{4 518 N\oe uds} uniques (9 labels hiérarchisés)\\
+        $\bullet$ \textbf{19 951 Relations} causales \& fonctionnelles (17 types)\\
+        $\bullet$ \textbf{Axe Diabète-Alzheimer} : 36 gènes partagés (\textit{Type 3 Diabetes})\\
+        $\bullet$ Ingestion batch \texttt{UNWIND} \& Contraintes d'unicité\\
+        $\bullet$ Traçabilité $k$-hop : Lifestyle $\to$ Gènes $\to$ Voies $\to$ Maladie\\[4pt]
         \begin{tikzpicture}
-            \node[badge=TealBorder] {Neo4j 5.26 | Cypher | APOC | Docker};
+            \node[badge=TealBorder] {Neo4j 5.26 | Cypher | APOC | Docker Compose};
         \end{tikzpicture}
     };
 
     % -------------------------------------------------------------------------
-    % ÉTAPE 2B : BASE VECTORIELLE (CHROMADB / PUBMEDBERT)
+    % ÉTAPE 2B : BASE VECTORIELLE CLINIQUE DENSE
     % -------------------------------------------------------------------------
-    \node[innerCard=IndigoBorder, text width=6.8cm] (vec_box) at (11.5, 7.8) {
-        \textbf{\textcolor{IndigoBorder}{\large Étape 2B : Base Vectorielle Clinique}}\\[3pt]
+    \node[innerCard=IndigoBorder, fill=IndigoPrimary, text width=6.8cm, below=0.6cm of kg_box] (vec_box) {
+        \textbf{\textcolor{IndigoText}{\large 2B. Base Vectorielle Clinique Dense}}\\[3pt]
         $\bullet$ \textbf{719 Chunks} contextuels MedQuAD indexés\\
-        $\bullet$ Modèle d'embeddings biomédical \textbf{PubMedBERT}\\
-        $\bullet$ Espace vectoriel dense : 768 dimensions\\
-        $\bullet$ Indexation \& Similarité cosinus normalisée\\[4pt]
+        $\bullet$ Modèle biomédical \textbf{PubMedBERT} (768 dimensions)\\
+        $\bullet$ Métadonnées cliniques : \texttt{disease}, \texttt{qtype}, \texttt{focus}\\
+        $\bullet$ \textbf{Dual Vector Store} :\\
+        \quad - \textbf{ChromaDB} : Moteur embarqué local sans dépendance\\
+        \quad - \textbf{Qdrant} : Microservice Docker pour la production\\[4pt]
         \begin{tikzpicture}
-            \node[badge=IndigoBorder] {PubMedBERT | ChromaDB | PyTorch | Qdrant};
+            \node[badge=IndigoBorder] {PubMedBERT (768d) | ChromaDB | Qdrant Docker};
         \end{tikzpicture}
     };
+
+    \begin{scope}[on background layer]
+        \node[stepCard=TealBorder, fit={(kg_box) (vec_box)}, label={[TealBorder, font=\bfseries\normalsize]above:ÉTAPE 2 : STOCKAGE \& INDEXATION DUAL-CORE}] (card_step2) {};
+    \end{scope}
 
     % -------------------------------------------------------------------------
     % ÉTAPE 3 : RETRIEVER HYBRIDE & FUSION DE CONTEXTE
     % -------------------------------------------------------------------------
-    \node[innerCard=AmberBorder, text width=6.5cm] (rag_box1) at (19.5, 11.2) {
-        \textbf{\textcolor{AmberBorder}{\large 3.1 Retrieval Conjoint}}\\[3pt]
-        $\bullet$ \textbf{Entity Linking} : Détection d'entités, gènes, alias\\
-        $\bullet$ \textbf{Graphe $k$-Hop} : (Maladie) $\to$ (Gènes) $\to$ (Voies)\\
-        $\bullet$ \textbf{Axe Diabète-Alzheimer} : 36 gènes partagés\\
-        $\bullet$ \textbf{Recherche Vectorielle} : Top-$k$ chunks certifiés\\[4pt]
+    \node[innerCard=AmberBorder, fill=AmberPrimary, text width=6.6cm] (rag_box1) at (19.8, 11.5) {
+        \textbf{\textcolor{AmberText}{\large 3.1 Retrieval Conjoint}}\\[3pt]
+        $\bullet$ \textbf{BiomedicalEntityLinker} : 30+ alias lifestyle \& gènes\\
+        $\bullet$ \textbf{Graphe $k$-Hop} : (Lifestyle) $\to$ (BDNF/TNF) $\to$ (Voies)\\
+        $\bullet$ \textbf{Axe Diabète-Alzheimer} : 36 gènes communs (IRS1, AKT1)\\
+        $\bullet$ \textbf{Recherche Vectorielle} : Top-$k$ chunks certifiés NIH\\
+        $\bullet$ Score combiné normalisé de pertinence\\[4pt]
         \begin{tikzpicture}
             \node[badge=AmberBorder] {HybridRetriever | LocalGraphEngine};
         \end{tikzpicture}
     };
 
-    \node[innerCard=AmberBorder, text width=6.5cm] (rag_box2) at (19.5, 7.8) {
-        \textbf{\textcolor{AmberBorder}{\large 3.2 Fusion de Contexte}}\\[3pt]
-        $\bullet$ Linéarisation des triplets relationnels \& chemins\\
-        $\bullet$ Structuration conjointe (Graphe causale + Évidences NIH)\\
-        $\bullet$ Réduction prouvée des hallucinations et sauts logiques\\[4pt]
+    \node[innerCard=AmberBorder, fill=AmberPrimary, text width=6.6cm, below=0.6cm of rag_box1] (rag_box2) {
+        \textbf{\textcolor{AmberText}{\large 3.2 Fusion de Contexte}}\\[3pt]
+        $\bullet$ Linéarisation ordonnée des triplets \& chaînes causales\\
+        $\bullet$ Fusion conjointe : Graphe formel + Extraits certifiés NIH\\
+        $\bullet$ Élimination documentée des hallucinations médicales\\
+        $\bullet$ Éradication des ruptures déductives et faux liens\\[4pt]
         \begin{tikzpicture}
-            \node[badge=AmberBorder] {ContextFusionEngine | Pydantic};
+            \node[badge=AmberBorder] {ContextFusionEngine | Pydantic Schema};
         \end{tikzpicture}
     };
 
@@ -190,70 +221,73 @@
     \end{scope}
 
     % -------------------------------------------------------------------------
-    % ÉTAPE 4 & 5 : RAISONNEMENT CAUSAL & BENCHMARK D'ÉVALUATION
+    % ÉTAPES 4 & 5 : RAISONNEMENT CAUSAL, BENCHMARK & APPLICATION STREAMLIT
     % -------------------------------------------------------------------------
-    \node[innerCard=EmeraldBorder, text width=6.2cm] (llm_box1) at (3.5, 2.5) {
-        \textbf{\textcolor{EmeraldBorder}{\large 4. Moteur de Synthèse Causale}}\\[3pt]
+    \node[innerCard=EmeraldBorder, fill=EmeraldPrimary, text width=6.2cm] (llm_box1) at (3.2, 1.8) {
+        \textbf{\textcolor{EmeraldText}{\large 4. Moteur de Synthèse Causale}}\\[3pt]
         1. Déclencheurs étiologiques (APP, PSEN1, APOE)\\
-        2. Voies \& perturbations (Apoptose, Métabolisme)\\
-        3. Phénotypes \& déclin cognitif (Démence, mémoire)\\
-        4. Cibles thérapeutiques (Donepezil, Memantine)\\
-        5. Traçabilité \& citations des sources\\[4pt]
+        2. Cascades intermédiaires (Résistance insuline, TNF)\\
+        3. Impact Lifestyle : Neuroprotection (BDNF)\\
+        4. Phénotypes \& déclin cognitif (Démence, mémoire)\\
+        5. Repositionnement (Donepezil, Memantine, Diète)\\
+        6. Traçabilité absolue : Triplets graphe \& DocIDs NIH\\[4pt]
         \begin{tikzpicture}
-            \node[badge=EmeraldBorder] {CausalGenerator | LLM Routing (Gemini/GPT-4o)};
+            \node[badge=EmeraldBorder] {CausalGenerator | LLM Routing};
         \end{tikzpicture}
     };
 
-    \node[innerCard=EmeraldBorder, text width=6.5cm] (llm_box2) at (11.5, 2.5) {
-        \textbf{\textcolor{EmeraldBorder}{\large 5. Évaluation Comparative Rigoureuse}}\\[3pt]
+    \node[innerCard=EmeraldBorder, fill=EmeraldPrimary, text width=6.6cm] (llm_box2) at (11.5, 1.8) {
+        \textbf{\textcolor{EmeraldText}{\large 5. Benchmark d'Évaluation}}\\[3pt]
         $\bullet$ \textbf{Chaînes causales tracées} : 0 (Std) vs \textbf{23} (GraphRAG)\\
-        $\bullet$ \textbf{Couverture des voies intermédiaires} : +100\%\\
-        $\bullet$ \textbf{Citations \& Évidences} : 15 (Std) vs \textbf{35} (GraphRAG)\\
-        $\bullet$ Traçabilité totale et reproductibilité certifiée\\[4pt]
+        $\bullet$ \textbf{Couverture des voies métaboliques} : \textbf{+100\%}\\
+        $\bullet$ \textbf{Triplets \& Citations d'évidences} : 15 vs \textbf{35}\\
+        $\bullet$ Connexions Diabète-Alzheimer : 0 vs 100\% identifiées\\
+        $\bullet$ Fichier certifié : \texttt{data/processed/evaluation\_results.json}\\[4pt]
         \begin{tikzpicture}
             \node[badge=EmeraldBorder] {evaluate\_rag.py | Benchmark Suite};
         \end{tikzpicture}
     };
 
-    \node[innerCard=EmeraldBorder, text width=5.8cm] (llm_box3) at (19.2, 2.5) {
-        \textbf{\textcolor{EmeraldBorder}{\large Déploiement \& Interfaces}}\\[3pt]
-        $\bullet$ Démonstrateur interactif (\texttt{demo.py})\\
-        $\bullet$ Lanceur rapide Windows (\texttt{run\_demo.bat})\\
-        $\bullet$ Suite de tests complète (\texttt{test\_pipeline.py})\\
+    \node[innerCard=EmeraldBorder, fill=EmeraldPrimary, text width=6.2cm] (llm_box3) at (19.8, 1.8) {
+        \textbf{\textcolor{EmeraldText}{\large Interfaces \& Déploiement}}\\[3pt]
+        $\bullet$ \textbf{Application Web Streamlit} (\texttt{app.py} \& \texttt{run\_app.bat}) :\\
+        \quad - Chatbot GraphRAG avec streaming \& citations\\
+        \quad - Visualiseur (36 gènes partagés \& mode de vie)\\
+        \quad - Dashboard comparatif Standard RAG vs GraphRAG\\
+        $\bullet$ \textbf{CLI Interactif} (\texttt{src/rag/cli.py}) \& Démo (\texttt{demo.py})\\
         $\bullet$ Dépôt GitHub : \texttt{biomedical-graphrag}\\[4pt]
         \begin{tikzpicture}
-            \node[badge=EmeraldBorder] {Docker | GitHub | PowerShell CLI};
+            \node[badge=EmeraldBorder] {Streamlit (app.py) | CLI | GitHub CI};
         \end{tikzpicture}
     };
 
     \begin{scope}[on background layer]
-        \node[stepCard=EmeraldBorder, fit={(llm_box1) (llm_box2) (llm_box3)}, label={[EmeraldBorder, font=\bfseries\normalsize]above:ÉTAPE 4 \& 5 : RAISONNEMENT CAUSAL MULTI-ÉCHELLES, BENCHMARK \& DÉPLOIEMENT}] (card_step4) {};
+        \node[stepCard=EmeraldBorder, fit={(llm_box1) (llm_box2) (llm_box3)}, label={[EmeraldBorder, font=\bfseries\normalsize]above:ÉTAPE 4 \& 5 : RAISONNEMENT CAUSAL MULTI-ÉCHELLES, BENCHMARK \& DÉPLOIEMENT STREAMLIT}] (card_step4) {};
     \end{scope}
 
     % -------------------------------------------------------------------------
-    % FLÈCHES DE FLUX DE DONNÉES (DATAFLOW)
+    % FLÈCHES DE FLUX DIRECTIONNELLES (DATAFLOW)
     % -------------------------------------------------------------------------
     % ETL vers Graphe
     \draw[flowArrow=TealBorder] (etl_sub1.east) -- (kg_box.west)
         node[midway, flowLabel=TealBorder] {Triplets CSV};
 
     % ETL vers Vector Store
-    \draw[flowArrow=IndigoBorder] (etl_sub2.east) -- (vec_box.west)
+    \draw[flowArrow=IndigoBorder] (etl_sub3.east) -- (vec_box.west)
         node[midway, flowLabel=IndigoBorder] {Chunks XML};
 
     % Graphe vers Hybrid Retriever
     \draw[flowArrow=TealBorder] (kg_box.east) -- (rag_box1.west)
-        node[midway, flowLabel=TealBorder] {Chemins $k$-Hop};
+        node[midway, flowLabel=TealBorder] {Chemins $k$-Hop \& 36 Gènes};
 
     % Vector Store vers Hybrid Retriever
     \draw[flowArrow=IndigoBorder] (vec_box.east) -- (rag_box2.west)
-        node[midway, flowLabel=IndigoBorder] {Top-$k$ Chunks};
+        node[midway, flowLabel=IndigoBorder] {Top-$k$ Chunks (PubMedBERT)};
 
     % Hybrid Retriever vers Causal Generator
-    \draw[flowArrow=AmberBorder] (card_step3.south) -- ++(0,-0.6) -| (llm_box3.north)
-        node[pos=0.25, flowLabel=AmberBorder] {Contexte Fusionné Augmenté};
+    \draw[flowArrow=AmberBorder] (card_step3.south) -- ++(0,-0.4) -| (llm_box3.north)
+        node[pos=0.25, flowLabel=AmberBorder] {Contexte Causal Fusionné};
 
 \end{tikzpicture}
 
 \end{document}
-
