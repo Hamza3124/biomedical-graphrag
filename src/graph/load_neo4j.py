@@ -39,13 +39,14 @@ class Neo4jGraphLoader:
 
     NODE_LABELS = [
         "Disease", "Gene", "Pathway", "Compound",
-        "Symptom", "Anatomy", "SideEffect", "BiologicalProcess"
+        "Symptom", "Anatomy", "SideEffect", "BiologicalProcess",
+        "LifestyleCategory", "LifestyleFactor"
     ]
 
     RELATION_TYPES = [
         "TREATS", "PALLIATES", "ASSOCIATES_WITH", "DOWNREGULATES", "UPREGULATES",
         "MANIFESTS", "LOCALIZES_IN", "PARTICIPATES_IN", "BINDS", "INTERACTS_WITH",
-        "REGULATES", "CAUSES", "RESEMBLES"
+        "REGULATES", "CAUSES", "RESEMBLES", "SUBCLASS_OF", "PROTECTS", "AGGRAVATES", "INDUCES"
     ]
 
     def __init__(

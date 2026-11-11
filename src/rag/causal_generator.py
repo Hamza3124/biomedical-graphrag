@@ -67,6 +67,11 @@ class CausalGenerator:
         if not compounds:
             compounds = ["Donepezil", "Memantine", "Galantamine", "Rivastigmine"]
 
+        # Extract lifestyle factors
+        lifestyles = [e["name"] for e in result.linked_entities if "Lifestyle" in str(e.get("type", ""))]
+        if not lifestyles:
+            lifestyles = list({f.source_name for f in result.causal_facts if "Lifestyle" in str(f.source_type)})
+
         # Causal diagram from multi-hop chains
         causal_chains = result.multihop_chains if mode != "vector_only" else []
 
@@ -104,13 +109,20 @@ class CausalGenerator:
             "Ces composés exercent leur effet en modulant les voies de neurotransmission (inhibition de l'acétylcholinestérase, antagonisme des récepteurs NMDA).\n",
         ])
 
+        if lifestyles:
+            narrative_lines.extend([
+                "## 5. Facteurs de Mode de Vie & Épigénétique (Human Lifestyle & Prévention)",
+                f"Facteurs comportementaux identifiés : {', '.join(lifestyles)}.",
+                "Le mode de vie module la susceptibilité et la progression de la maladie par des mécanismes épigénétiques, métaboliques (axe insuline/GLUT4) et neurotrophiques (BDNF/clairance glymphatique).\n"
+            ])
+
         if causal_chains:
-            narrative_lines.append("## 5. Chaînes de Causalité Multi-Échelles (Knowledge Graph Traversal)")
+            narrative_lines.append("## 6. Chaînes de Causalité Multi-Échelles (Knowledge Graph Traversal)")
             for ch in causal_chains:
                 narrative_lines.append(f"- `{ch}`")
             narrative_lines.append("")
 
-        narrative_lines.append("## 6. Traçabilité & Références Certifiées")
+        narrative_lines.append("## 7. Traçabilité & Références Certifiées")
         for cite in citations:
             narrative_lines.append(f"- {cite}")
 

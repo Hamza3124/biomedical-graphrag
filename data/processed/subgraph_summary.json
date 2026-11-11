@@ -1,6 +1,6 @@
 {
-  "total_nodes": 4503,
-  "total_edges": 19911,
+  "total_nodes": 4518,
+  "total_edges": 19951,
   "nodes_by_type": {
     "SideEffect": 1415,
     "Pathway": 1222,
@@ -63,5 +63,7 @@
       "path_type": "Cross-disease common metabolic link",
       "example": "Alzheimer's disease & Type 2 Diabetes -> Shared Genes: AKT1, IRS1, INS"
     }
-  ]
+  ],
+  "lifestyle_nodes_count": 15,
+  "lifestyle_edges_count": 40
 }

@@ -82,3 +82,22 @@ RETURN shared_gene.name AS GenePartage,
 ORDER BY NombreVoiesTotal DESC
 LIMIT 15;
 
+
+// ----------------------------------------------------------------------------
+// REQUÊTE 6 : Arborescence "Human Lifestyle" et Mécanismes Causaux Comportementaux
+// Contexte : Facteurs modifiables (Nutrition, Exercice, Sommeil, Stress, Habitudes)
+// Objectif : Traverser l'arborescence du mode de vie et identifier les mécanismes
+// moléculaires protecteurs ou aggravants liant le comportement aux pathologies.
+// ----------------------------------------------------------------------------
+MATCH (cat:LifestyleCategory)<-[:SUBCLASS_OF]-(lf:LifestyleFactor)
+OPTIONAL MATCH (lf)-[r:PROTECTS|AGGRAVATES]->(d:Disease)
+OPTIONAL MATCH (lf)-[rg:UPREGULATES|DOWNREGULATES]->(g:Gene)
+RETURN cat.name AS CategorieLifestyle,
+       lf.name AS FacteurDeModeDeVie,
+       type(r) AS ImpactCliniqueDirect,
+       d.name AS PathologieCible,
+       type(rg) AS RegulationMoleculaire,
+       g.name AS GeneCible
+ORDER BY CategorieLifestyle, FacteurDeModeDeVie;
+
+

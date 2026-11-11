@@ -19910,3 +19910,43 @@ Compound:DB01083,Orlistat,Compound,CAUSES,SideEffect:C0002792,Anaphylactic shock
 Compound:DB01016,Glyburide,Compound,CAUSES,SideEffect:C0021141,Inappropriate antidiuretic hormone secretion,SideEffect,CcSE,adverse_effect,2,Hetionet
 Compound:DB01016,Glyburide,Compound,CAUSES,SideEffect:C0012569,Diplopia,SideEffect,CcSE,adverse_effect,2,Hetionet
 Compound:DB01037,Selegiline,Compound,CAUSES,SideEffect:C0008489,Chorea,SideEffect,CcSE,adverse_effect,2,Hetionet
+Lifestyle:Nutrition,Nutrition and Dietary Habits,LifestyleCategory,SUBCLASS_OF,Lifestyle:Root,Human Lifestyle,LifestyleCategory,LScLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:Physical_Activity,Physical Activity and Exercise,LifestyleCategory,SUBCLASS_OF,Lifestyle:Root,Human Lifestyle,LifestyleCategory,LScLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:Sleep,Sleep and Circadian Rhythm,LifestyleCategory,SUBCLASS_OF,Lifestyle:Root,Human Lifestyle,LifestyleCategory,LScLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:Toxic_Habits,Toxic Habits and Substances,LifestyleCategory,SUBCLASS_OF,Lifestyle:Root,Human Lifestyle,LifestyleCategory,LScLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:Stress_Mental,Psychosocial Stress and Cognitive Engagement,LifestyleCategory,SUBCLASS_OF,Lifestyle:Root,Human Lifestyle,LifestyleCategory,LScLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:Mediterranean_Diet,Mediterranean and DASH Diet,LifestyleFactor,SUBCLASS_OF,Lifestyle:Nutrition,Nutrition and Dietary Habits,LifestyleCategory,LFcLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:High_Sugar_Ultraprocessed_Diet,High Glycemic and Ultra-Processed Diet,LifestyleFactor,SUBCLASS_OF,Lifestyle:Nutrition,Nutrition and Dietary Habits,LifestyleCategory,LFcLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:Aerobic_Exercise,Regular Aerobic Physical Exercise,LifestyleFactor,SUBCLASS_OF,Lifestyle:Physical_Activity,Physical Activity and Exercise,LifestyleCategory,LFcLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:Sedentary_Behavior,Sedentary Behavior and Inactivity,LifestyleFactor,SUBCLASS_OF,Lifestyle:Physical_Activity,Physical Activity and Exercise,LifestyleCategory,LFcLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:Chronic_Sleep_Deprivation,Chronic Sleep Deprivation and Sleep Apnea,LifestyleFactor,SUBCLASS_OF,Lifestyle:Sleep,Sleep and Circadian Rhythm,LifestyleCategory,LFcLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:Tobacco_Smoking,Tobacco Smoking Habit,LifestyleFactor,SUBCLASS_OF,Lifestyle:Toxic_Habits,Toxic Habits and Substances,LifestyleCategory,LFcLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:Chronic_Excessive_Alcohol,Chronic Excessive Alcohol Intake,LifestyleFactor,SUBCLASS_OF,Lifestyle:Toxic_Habits,Toxic Habits and Substances,LifestyleCategory,LFcLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:Chronic_Psychological_Stress,Chronic Psychological Stress and Hypercortisolemia,LifestyleFactor,SUBCLASS_OF,Lifestyle:Stress_Mental,Psychosocial Stress and Cognitive Engagement,LifestyleCategory,LFcLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:Cognitive_Stimulation,Cognitive Reserve and Intellectual Engagement,LifestyleFactor,SUBCLASS_OF,Lifestyle:Stress_Mental,Psychosocial Stress and Cognitive Engagement,LifestyleCategory,LFcLS,hierarchy,1,Human_Lifestyle_Ontology
+Lifestyle:Mediterranean_Diet,Mediterranean and DASH Diet,LifestyleFactor,PROTECTS,DOID:10652,Alzheimer's disease,Disease,LFpD,protective,1,Human_Lifestyle_Ontology
+Lifestyle:Mediterranean_Diet,Mediterranean and DASH Diet,LifestyleFactor,PROTECTS,DOID:9352,Type 2 diabetes mellitus,Disease,LFpD,protective,1,Human_Lifestyle_Ontology
+Lifestyle:Aerobic_Exercise,Regular Aerobic Physical Exercise,LifestyleFactor,PROTECTS,DOID:10652,Alzheimer's disease,Disease,LFpD,protective,1,Human_Lifestyle_Ontology
+Lifestyle:Aerobic_Exercise,Regular Aerobic Physical Exercise,LifestyleFactor,PROTECTS,DOID:9352,Type 2 diabetes mellitus,Disease,LFpD,protective,1,Human_Lifestyle_Ontology
+Lifestyle:Cognitive_Stimulation,Cognitive Reserve and Intellectual Engagement,LifestyleFactor,PROTECTS,DOID:10652,Alzheimer's disease,Disease,LFpD,protective,1,Human_Lifestyle_Ontology
+Lifestyle:High_Sugar_Ultraprocessed_Diet,High Glycemic and Ultra-Processed Diet,LifestyleFactor,AGGRAVATES,DOID:9352,Type 2 diabetes mellitus,Disease,LFaD,aggravating,1,Human_Lifestyle_Ontology
+Lifestyle:High_Sugar_Ultraprocessed_Diet,High Glycemic and Ultra-Processed Diet,LifestyleFactor,AGGRAVATES,DOID:10652,Alzheimer's disease,Disease,LFaD,aggravating,1,Human_Lifestyle_Ontology
+Lifestyle:Sedentary_Behavior,Sedentary Behavior and Inactivity,LifestyleFactor,AGGRAVATES,DOID:9352,Type 2 diabetes mellitus,Disease,LFaD,aggravating,1,Human_Lifestyle_Ontology
+Lifestyle:Sedentary_Behavior,Sedentary Behavior and Inactivity,LifestyleFactor,AGGRAVATES,DOID:10652,Alzheimer's disease,Disease,LFaD,aggravating,1,Human_Lifestyle_Ontology
+Lifestyle:Chronic_Sleep_Deprivation,Chronic Sleep Deprivation and Sleep Apnea,LifestyleFactor,AGGRAVATES,DOID:10652,Alzheimer's disease,Disease,LFaD,aggravating,1,Human_Lifestyle_Ontology
+Lifestyle:Tobacco_Smoking,Tobacco Smoking Habit,LifestyleFactor,AGGRAVATES,DOID:10652,Alzheimer's disease,Disease,LFaD,aggravating,1,Human_Lifestyle_Ontology
+Lifestyle:Chronic_Excessive_Alcohol,Chronic Excessive Alcohol Intake,LifestyleFactor,AGGRAVATES,DOID:10652,Alzheimer's disease,Disease,LFaD,aggravating,1,Human_Lifestyle_Ontology
+Lifestyle:Chronic_Psychological_Stress,Chronic Psychological Stress and Hypercortisolemia,LifestyleFactor,AGGRAVATES,DOID:10652,Alzheimer's disease,Disease,LFaD,aggravating,1,Human_Lifestyle_Ontology
+Lifestyle:Chronic_Psychological_Stress,Chronic Psychological Stress and Hypercortisolemia,LifestyleFactor,AGGRAVATES,DOID:9352,Type 2 diabetes mellitus,Disease,LFaD,aggravating,1,Human_Lifestyle_Ontology
+Lifestyle:Aerobic_Exercise,Regular Aerobic Physical Exercise,LifestyleFactor,UPREGULATES,Gene:627,BDNF,Gene,LFuG,upregulation,1,Human_Lifestyle_Ontology
+Lifestyle:Aerobic_Exercise,Regular Aerobic Physical Exercise,LifestyleFactor,UPREGULATES,Gene:207,AKT1,Gene,LFuG,upregulation,1,Human_Lifestyle_Ontology
+Lifestyle:Aerobic_Exercise,Regular Aerobic Physical Exercise,LifestyleFactor,UPREGULATES,Gene:5468,PPARG,Gene,LFuG,upregulation,1,Human_Lifestyle_Ontology
+Lifestyle:Mediterranean_Diet,Mediterranean and DASH Diet,LifestyleFactor,UPREGULATES,Gene:5468,PPARG,Gene,LFuG,upregulation,1,Human_Lifestyle_Ontology
+Lifestyle:Mediterranean_Diet,Mediterranean and DASH Diet,LifestyleFactor,UPREGULATES,Gene:3667,IRS1,Gene,LFuG,upregulation,1,Human_Lifestyle_Ontology
+Lifestyle:High_Sugar_Ultraprocessed_Diet,High Glycemic and Ultra-Processed Diet,LifestyleFactor,DOWNREGULATES,Gene:3667,IRS1,Gene,LFdG,downregulation,1,Human_Lifestyle_Ontology
+Lifestyle:High_Sugar_Ultraprocessed_Diet,High Glycemic and Ultra-Processed Diet,LifestyleFactor,UPREGULATES,Gene:7124,TNF,Gene,LFuG,upregulation,1,Human_Lifestyle_Ontology
+Lifestyle:High_Sugar_Ultraprocessed_Diet,High Glycemic and Ultra-Processed Diet,LifestyleFactor,UPREGULATES,Gene:3569,IL6,Gene,LFuG,upregulation,1,Human_Lifestyle_Ontology
+Lifestyle:Chronic_Psychological_Stress,Chronic Psychological Stress and Hypercortisolemia,LifestyleFactor,UPREGULATES,Gene:7124,TNF,Gene,LFuG,upregulation,1,Human_Lifestyle_Ontology
+Lifestyle:Chronic_Psychological_Stress,Chronic Psychological Stress and Hypercortisolemia,LifestyleFactor,UPREGULATES,Gene:3569,IL6,Gene,LFuG,upregulation,1,Human_Lifestyle_Ontology
+Lifestyle:High_Sugar_Ultraprocessed_Diet,High Glycemic and Ultra-Processed Diet,LifestyleFactor,INDUCES,Symptom:D011596,Psychomotor Disorders,Symptom,LFiS,induction,1,Human_Lifestyle_Ontology
+Lifestyle:Sedentary_Behavior,Sedentary Behavior and Inactivity,LifestyleFactor,INDUCES,Symptom:D011596,Psychomotor Disorders,Symptom,LFiS,induction,1,Human_Lifestyle_Ontology
