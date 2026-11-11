@@ -128,3 +128,4 @@ class CausalGenerator:
             citations=citations,
             retrieval_mode=mode,
         )
+

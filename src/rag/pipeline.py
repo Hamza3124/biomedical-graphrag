@@ -58,3 +58,4 @@ class GraphRAGPipeline:
         # 2. Causal Generation
         report = self.generator.generate(retrieval_result, mode=mode)
         return report
+

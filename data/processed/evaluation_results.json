@@ -1,0 +1,117 @@
+[
+  {
+    "case_id": "CASE_1",
+    "question": "What are the molecular and genetic mechanisms by which APP and PSEN1 mutations lead to Alzheimer's disease?",
+    "type": "genetic_etiology",
+    "vector_only": {
+      "genes_count": 2,
+      "pathways_count": 0,
+      "causal_chains_count": 0,
+      "citations_count": 3,
+      "latency_sec": 0.197
+    },
+    "hybrid_graphrag": {
+      "genes_count": 2,
+      "pathways_count": 0,
+      "causal_chains_count": 6,
+      "citations_count": 7,
+      "latency_sec": 0.215,
+      "causal_chains_sample": [
+        "(Alzheimer's disease) ==[DOWNREGULATES]==> (Gene: APP) ==[PARTICIPATES_IN]==> (Pathway: G alpha (q) signalling events)",
+        "(Alzheimer's disease) ==[DOWNREGULATES]==> (Gene: APP) ==[PARTICIPATES_IN]==> (Pathway: G alpha (i) signalling events)"
+      ]
+    }
+  },
+  {
+    "case_id": "CASE_2",
+    "question": "How does insulin resistance in Type 2 Diabetes contribute to neurodegeneration and cognitive impairment in Alzheimer's (Type 3 Diabetes)?",
+    "type": "cross_pathology_metabolic",
+    "vector_only": {
+      "genes_count": 1,
+      "pathways_count": 0,
+      "causal_chains_count": 0,
+      "citations_count": 3,
+      "latency_sec": 0.21
+    },
+    "hybrid_graphrag": {
+      "genes_count": 1,
+      "pathways_count": 0,
+      "causal_chains_count": 7,
+      "citations_count": 7,
+      "latency_sec": 0.246,
+      "causal_chains_sample": [
+        "(Alzheimer's disease) ==[ASSOCIATES_WITH]==> (Gene: INS) ==[PARTICIPATES_IN]==> (Pathway: SREBP signalling)",
+        "(Alzheimer's disease) ==[ASSOCIATES_WITH]==> (Gene: INS) ==[PARTICIPATES_IN]==> (Pathway: Adipogenesis)"
+      ]
+    }
+  },
+  {
+    "case_id": "CASE_3",
+    "question": "What is the pharmacological mechanism of action of Memantine and Donepezil in mitigating Alzheimer symptoms?",
+    "type": "pharmacotherapy",
+    "vector_only": {
+      "genes_count": 1,
+      "pathways_count": 0,
+      "causal_chains_count": 0,
+      "citations_count": 3,
+      "latency_sec": 0.209
+    },
+    "hybrid_graphrag": {
+      "genes_count": 5,
+      "pathways_count": 0,
+      "causal_chains_count": 6,
+      "citations_count": 7,
+      "latency_sec": 0.199,
+      "causal_chains_sample": [
+        "(Alzheimer's disease) ==[DOWNREGULATES]==> (Gene: CDC7) ==[PARTICIPATES_IN]==> (Pathway: DNA Replication)",
+        "(Alzheimer's disease) ==[DOWNREGULATES]==> (Gene: CDC7) ==[PARTICIPATES_IN]==> (Pathway: Mitotic M-M/G1 phases)"
+      ]
+    }
+  },
+  {
+    "case_id": "CASE_4",
+    "question": "How does microtubule-associated protein tau (MAPT) alteration cause synaptic degradation and dementia?",
+    "type": "proteinopathy_cascade",
+    "vector_only": {
+      "genes_count": 1,
+      "pathways_count": 0,
+      "causal_chains_count": 0,
+      "citations_count": 3,
+      "latency_sec": 0.209
+    },
+    "hybrid_graphrag": {
+      "genes_count": 1,
+      "pathways_count": 0,
+      "causal_chains_count": 2,
+      "citations_count": 7,
+      "latency_sec": 0.237,
+      "causal_chains_sample": [
+        "(Alzheimer's disease) ==[ASSOCIATES_WITH]==> (Gene: MAPT) ==[PARTICIPATES_IN]==> (Pathway: Signaling mediated by p38-gamma and p38-delta)",
+        "(Alzheimer's disease) ==[ASSOCIATES_WITH]==> (Gene: MAPT) ==[PARTICIPATES_IN]==> (Pathway: Copper homeostasis)"
+      ]
+    }
+  },
+  {
+    "case_id": "CASE_5",
+    "question": "What biological pathways are perturbed when APOE epsilon 4 allele increases risk of late-onset Alzheimer's?",
+    "type": "risk_pathways",
+    "vector_only": {
+      "genes_count": 1,
+      "pathways_count": 0,
+      "causal_chains_count": 0,
+      "citations_count": 3,
+      "latency_sec": 0.191
+    },
+    "hybrid_graphrag": {
+      "genes_count": 1,
+      "pathways_count": 0,
+      "causal_chains_count": 2,
+      "citations_count": 7,
+      "latency_sec": 0.195,
+      "causal_chains_sample": [
+        "(Alzheimer's disease) ==[ASSOCIATES_WITH]==> (Gene: APOE) ==[PARTICIPATES_IN]==> (Pathway: Lipid and lipoprotein metabolism)",
+        "(Alzheimer's disease) ==[ASSOCIATES_WITH]==> (Gene: APOE) ==[PARTICIPATES_IN]==> (Pathway: Composition of Lipid Particles)"
+      ]
+    }
+  }
+]
